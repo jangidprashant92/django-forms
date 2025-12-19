@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+
+{% if has_claims == "yes" %}
+  {{ form.claim_count|as_crispy_field }}
+  {{ form.claim_amount|as_crispy_field }}
+{% endif %}

@@ -1,0 +1,5 @@
+{% load crispy_forms_tags %}
+
+{% if declined == "yes" %}
+  {{ form.decline_reason|as_crispy_field }}
+{% endif %}

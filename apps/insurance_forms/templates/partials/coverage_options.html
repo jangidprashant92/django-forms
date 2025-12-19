@@ -1,0 +1,8 @@
+{% load crispy_forms_tags %}
+
+{% if coverage == "basic" %}
+    {{ form.coverage_period|as_crispy_field }}
+{% elif coverage == "comprehensive" %}
+    {{ form.coverage_period|as_crispy_field }}
+    {{ form.personal_effects|as_crispy_field }}
+{% endif %}
