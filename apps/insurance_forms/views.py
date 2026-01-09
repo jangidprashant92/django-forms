@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from crispy_forms.layout import Layout, Row, Div
+from crispy_forms.helper import FormHelper
+from django.shortcuts import redirect, render
 
+from .forms.step1 import Step1InsuranceForm, input_group_layout, radio_input_layout
 from .forms.step2 import Step2PlanForm
-from .forms.step1 import Step1InsuranceForm
 
 
 def step1(request):
@@ -36,11 +38,67 @@ def step2(request):
 
 
 def coverage_options(request):
-    form = Step1InsuranceForm(request.POST)
+    # form = Step1InsuranceForm(request.POST)
+    # return render(
+    #     request,
+    #     "partials/coverage_options.html",
+    #     {"form": form, "coverage": request.POST.get("coverage")},
+    # )
+    coverage = request.POST.get("coverage")
+
+    form = Step1InsuranceForm(request.POST or None)
+
+    helper = FormHelper()
+    helper.form_tag = False  # VERY IMPORTANT for HTMX partials
+    helper.form_class = "space-y-8"
+
+    if coverage == "basic":
+        helper.layout = Layout(
+            Div(
+                input_group_layout(
+                    "Coverage Period",
+                    Row(
+                        radio_input_layout("coverage_period"),
+                        css_class="mb-3 gap-6",
+                    ),
+                ),
+                css_class="flex flex-col",
+            ),
+        )
+
+    elif coverage == "comprehensive":
+        helper.layout = Layout(
+            Div(
+                input_group_layout(
+                    "Coverage Period",
+                    Div(
+                        radio_input_layout("coverage_period"),
+                        css_class="mb-3",
+                    ),
+                ),
+                css_class="flex flex-col",
+            ),
+            Div(
+                input_group_layout(
+                    "Personal Effects",
+                    Row(
+                        radio_input_layout("personal_effects"),
+                        css_class="mb-3 gap-6",
+                    ),
+                ),
+                css_class="flex flex-col",
+            ),
+        )
+    else:
+        helper.layout = Layout()
+
     return render(
         request,
         "partials/coverage_options.html",
-        {"form": form, "coverage": request.POST.get("coverage")},
+        {
+            "form": form,
+            "helper": helper,
+        },
     )
 
 
