@@ -1,17 +1,24 @@
+import time
 from crispy_forms.layout import Layout, Row, Div
 from crispy_forms.helper import FormHelper
 from django.shortcuts import redirect, render
+from django.views.decorators.cache import cache_page
+
+from django.views.decorators.vary import vary_on_cookie
 
 from .forms.step1 import Step1InsuranceForm, input_group_layout, radio_input_layout
 from .forms.step2 import Step2PlanForm
 
 
+@cache_page(60 * 15)
+@vary_on_cookie
 def step1(request):
+    # demo cache
+    time.sleep(3)
     step1_data = request.session.get("step1")
     form = Step1InsuranceForm(request.POST or step1_data or None)
 
     if request.method == "POST" and form.is_valid():
-        print(form.cleaned_data)
         request.session["step1"] = form.cleaned_data
         return redirect("step2")
 

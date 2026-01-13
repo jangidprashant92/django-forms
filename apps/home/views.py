@@ -1,8 +1,12 @@
+import time
+
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 
-# Create your views here.
 
-
+@cache_page(60 * 15)
+@vary_on_cookie
 def HomePage(request):
-    return HttpResponse("Home Page")
+    time.sleep(3)
+    return HttpResponse("Home Page Test")
