@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Custom Apps
     "apps.home",
     "apps.insurance_forms",
+    "apps.life_forms",
 ]
 
 if DEBUG:
@@ -77,7 +78,10 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["templates"],
+        "DIRS": [
+            "templates",
+            BASE_DIR / "config" / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
