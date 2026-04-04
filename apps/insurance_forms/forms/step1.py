@@ -224,5 +224,3 @@ class Step1InsuranceForm(forms.Form):
                 )
             ),
         )
-
-        print(self.helper.layout)

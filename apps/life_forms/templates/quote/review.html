@@ -1,0 +1,35 @@
+{% load crispy_forms_tags %}
+
+<div class="max-w-3xl mx-auto py-8 space-y-4">
+  <h1 class="text-2xl font-semibold">Review &amp; Submit</h1>
+
+  {% if submitted %}
+    <div class="p-3 rounded bg-green-50 text-green-800 border border-green-200">
+      Saved and marked as completed.
+    </div>
+  {% endif %}
+
+  <div class="bg-gray-50 border rounded p-4 space-y-2">
+    <div><strong>Quote #:</strong> {{ review_data.quote_num|default:"—" }}</div>
+    <div><strong>Customer:</strong> {{ review_data.customer_name|default:"—" }}</div>
+    <div><strong>Product:</strong> {{ review_data.product_type }}</div>
+    <div><strong>Status:</strong> {{ review_data.status }}</div>
+    <div class="pt-2">
+      <strong>Details</strong>
+      <ul class="list-disc pl-6">
+        {% for key, value in review_data.details.items %}
+          <li><span class="font-semibold">{{ key }}:</span> {{ value }}</li>
+        {% empty %}
+          <li>No additional details captured yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ form|crispy }}
+    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded" {% if submitted %}disabled class="opacity-60"{% endif %}>Submit</button>
+  </form>
+</div>

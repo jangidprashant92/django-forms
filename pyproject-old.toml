@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "insurance-forms"
+version = "0.1.0"
+description = ""
+authors = ["PJ"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+django = "^6.0"
+django-tailwind = {extras = ["cookiecutter", "honcho", "reload"], version = "^4.4.2"}
+django-crispy-forms = "^2.5"
+crispy-tailwind = "^1.0.3"
+django-htmx = "^1.27.0"
+django-tables2 = "^2.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+black = "^25.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,27 @@
+{% load django_tables2 %}
+<div class="bg-base-100 overflow-x-auto border border-neutral-300 rounded-none">
+  <table {{ table.attrs }} class="table table-md">
+    <thead>
+      <tr>
+        {% for column in table.columns %}
+          <th class="text-primary border-neutral-300 text-left">
+            {% if column.orderable %}
+              <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}" class="hover:text-blue-600">{{ column.header }}</a>
+            {% else %}
+              {{ column.header }}
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table.rows %}
+        <tr>
+          {% for column, cell in row.items %}
+            <td class="text-primary border-neutral-300 text-left">{{ cell }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("apps.home.urls")),
     path("insurance_forms/", include("apps.insurance_forms.urls")),
     path("life_forms/", include("apps.life_forms.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

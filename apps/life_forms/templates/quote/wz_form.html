@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+<div class="max-w-3xl mx-auto py-8">
+  <h1 class="text-2xl font-semibold mb-2">{{ product_type|capfirst }} &raquo; {{ step.slug|capfirst }}</h1>
+  <p class="text-sm text-gray-600 mb-6">Step {{ current_index }} of {{ steps|length }}</p>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ form|crispy }}
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Continue</button>
+  </form>
+</div>

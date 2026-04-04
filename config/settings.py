@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     "django_htmx",
+    "django_tables2",
     # Custom Apps
     "apps.home",
     "apps.insurance_forms",
