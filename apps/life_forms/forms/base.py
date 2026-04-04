@@ -11,6 +11,15 @@ class BaseQuoteForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         product_type = kwargs.pop("product_type", None)
+        instance = kwargs.get("instance")
+        initial = kwargs.get("initial") or {}
+
+        # Preload JSON-backed fields into initial so they render filled when resuming
+        if instance and instance.pk and instance.details:
+            for key, value in (instance.details or {}).items():
+                initial.setdefault(key, value)
+            kwargs["initial"] = initial
+
         super().__init__(*args, **kwargs)
 
         # keep product_type out of the UI while ensuring it is persisted

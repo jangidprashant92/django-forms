@@ -1,0 +1,29 @@
+<div class="max-w-4xl mx-auto py-8 space-y-4">
+  <h1 class="text-2xl font-semibold">Your Quotes</h1>
+  <table class="min-w-full bg-white border">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-3 py-2 text-left">Product</th>
+        <th class="px-3 py-2 text-left">Status</th>
+        <th class="px-3 py-2 text-left">Customer</th>
+        <th class="px-3 py-2 text-left">Quote #</th>
+        <th class="px-3 py-2 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for quote in quotes %}
+        <tr class="border-t">
+          <td class="px-3 py-2">{{ quote.product_type }}</td>
+          <td class="px-3 py-2">{{ quote.status }}</td>
+          <td class="px-3 py-2">{{ quote.customer_name|default:"—" }}</td>
+          <td class="px-3 py-2">{{ quote.quote_num|default:"—" }}</td>
+          <td class="px-3 py-2">
+            <a class="text-blue-600" href="{% url 'quote_step' product_type=quote.product_type step=quote.current_step %}?instance_id={{ quote.id }}">Continue</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td class="px-3 py-4" colspan="5">No quotes yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
